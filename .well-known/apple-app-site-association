@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "5STUZHLTXB.com.miyabiyaka.lts-research",
+        "paths": ["/lts-redirect/*", "/lts-redirect/"]
+      }
+    ]
+  }
+}
