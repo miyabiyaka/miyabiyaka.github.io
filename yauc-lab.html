@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ヤフオク暗号ルート実験室</title>
+<style>
+  body { margin: 0; background: #111214; color: #eee;
+         font-family: -apple-system, "Hiragino Sans", sans-serif; }
+  main { padding: 20px 16px 48px; max-width: 480px; margin: 0 auto; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  p.help { color: #aab; font-size: 13px; line-height: 1.6; margin: 0 0 16px; }
+  #msg { color: #ff6b6b; font-size: 15px; }
+  a.cand { display: block; background: #26272b; color: #fff; text-decoration: none;
+           padding: 14px 14px; border-radius: 12px; margin: 10px 0;
+           font-size: 16px; font-weight: 700; }
+  a.cand small { display: block; color: #8ab4f8; font-weight: 400;
+                 font-size: 11px; margin-top: 4px; word-break: break-all; }
+  a.control { background: #14532d; }
+</style>
+</head>
+<body>
+<main>
+  <h1>ヤフオク暗号ルート実験室</h1>
+  <p class="help">上から順にタップ →「開きますか？」→ アプリがどの画面で開いたか観察 → このページに戻って次へ。<br>
+  ①は答え合わせ用（商品ページが開くはず）。②以降で<b>入札/購入確認の画面</b>が開いた番号があれば、それが当たりです。何も起きない・ホーム画面になる＝不発。</p>
+  <p id="msg"></p>
+  <div id="list"></div>
+</main>
+<script>
+(function () {
+  var msg = document.getElementById("msg");
+  var id = new URLSearchParams(location.search).get("id") || "";
+  const idPattern = /^[a-z][0-9]{10}$/;
+  if (!idPattern.test(id)) {
+    msg.textContent = "不正なIDです";
+    return;
+  }
+  var routes = [
+    ["① auctionitem（答え合わせ用・商品ページ）", "yjauctions://auctionitem?auctionid=" + id, true],
+    ["② bid", "yjauctions://bid?auctionid=" + id, false],
+    ["③ auctionitem + action=bid", "yjauctions://auctionitem?auctionid=" + id + "&action=bid", false],
+    ["④ buy", "yjauctions://buy?auctionid=" + id, false],
+    ["⑤ buynow", "yjauctions://buynow?auctionid=" + id, false],
+    ["⑥ purchase", "yjauctions://purchase?auctionid=" + id, false],
+    ["⑦ order", "yjauctions://order?auctionid=" + id, false],
+    ["⑧ place_bid", "yjauctions://place_bid?auctionid=" + id, false],
+    ["⑨ bidconfirm", "yjauctions://bidconfirm?auctionid=" + id, false],
+    ["⑩ auctionitem + tab=bid", "yjauctions://auctionitem?auctionid=" + id + "&tab=bid", false]
+  ];
+  var list = document.getElementById("list");
+  routes.forEach(function (r) {
+    var a = document.createElement("a");
+    a.className = r[2] ? "cand control" : "cand";
+    a.href = r[1];
+    a.appendChild(document.createTextNode(r[0]));
+    var s = document.createElement("small");
+    s.textContent = r[1];
+    a.appendChild(s);
+    list.appendChild(a);
+  });
+})();
+</script>
+</body>
+</html>
