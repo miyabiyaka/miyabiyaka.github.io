@@ -5,6 +5,10 @@
       {
         "appID": "5STUZHLTXB.com.miyabiyaka.lts-research",
         "paths": ["/lts-redirect/*", "/lts-redirect/"]
+      },
+      {
+        "appID": "5STUZHLTXB.com.miyabiyaka.ecalertrecolleassist",
+        "paths": ["/purchase/mercari", "/purchase/mercari/"]
       }
     ]
   }
