@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>EC Alert Relay</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { margin: 0; background: #111318; color: #f7f7f8;
+         font-family: -apple-system, "Hiragino Sans", sans-serif;
+         display: flex; min-height: 100vh; align-items: center; justify-content: center; }
+  main { text-align: center; padding: 24px; width: 100%; max-width: 420px; }
+  #status { font-size: 16px; min-height: 1.2em; margin: 0 0 12px; }
+  #status.error { color: #ff6b6b; }
+  #status.ok { color: #b7bac2; }
+  a.fallback { display: inline-block; color: #8ab4f8; font-size: 14px; margin-top: 16px; text-decoration: none; }
+  .note { color: #666; font-size: 12px; margin-top: 24px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<main>
+  <p id="status" class="ok">セカンドストリートへ移動しています…</p>
+  <div id="fallback-zone" hidden>
+    <a id="manual-link" class="fallback">手動で開く</a>
+  </div>
+  <p class="note">このページは注文情報を読み取り・保存・転送しません。</p>
+</main>
+<script>
+(function () {
+  var statusEl = document.getElementById("status");
+  var fallbackZone = document.getElementById("fallback-zone");
+  var manualLink = document.getElementById("manual-link");
+
+  function showError(msg) {
+    statusEl.textContent = msg;
+    statusEl.className = "error";
+  }
+
+  var params = new URLSearchParams(location.hash.slice(1));
+  var g = params.get("g");
+  var s = params.get("s");
+  var mp = params.get("mp");
+  var dry = params.get("dry");
+
+  if (!g || !/^\d+$/.test(g)) {
+    showError("リンクが不完全です");
+    return;
+  }
+  if (s && !/^\d+$/.test(s)) {
+    showError("リンクが不完全です");
+    return;
+  }
+
+  var path = "/goods/detail/goodsId/" + g;
+  if (s) path += "/shopsId/" + s;
+
+  var fragment = "#pa=1";
+  if (mp && /^\d+$/.test(mp)) fragment += "&mp=" + mp;
+  if (dry === "1") fragment += "&dry=1";
+
+  var target = "https://www.2ndstreet.jp" + path + fragment;
+
+  manualLink.href = target;
+  fallbackZone.hidden = false;
+
+  location.replace(target);
+})();
+</script>
+</body>
+</html>
