@@ -50,6 +50,9 @@
   if (mp && /^\d+$/.test(mp)) {
     target += "&mp=" + mp;
   }
+  if (params.get("dry") === "1") {
+    target += "&dry=1";
+  }
 
   manualLink.href = target;
   fallbackZone.hidden = false;
