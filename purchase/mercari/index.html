@@ -37,12 +37,28 @@
     statusEl.className = "error";
   }
 
-  // 2026-09-03: ?id=（query）はアプリ中継経路（Universal Link不発時の保険）。#id=（hash）は従来のSafari拡張経路
+  // 2026-09-03: ?id=（query）はアプリ中継経路（UL不発時の保険）。m…=個人出品、2[A-Za-z0-9]{20+}=Shops品。#id=（hash）は旧Safari拡張経路
   var q = new URLSearchParams(location.search);
-  if (q.get("id") && /^m\d{6,}$/.test(q.get("id"))) {
-    var appTarget = "mercari://app/openUrl?url=" + encodeURIComponent("https://jp.mercari.com/purchase/" + q.get("id"));
-    statusEl.textContent = "メルカリアプリの購入確認へ移動しています…";
-    manualLink.href = appTarget; manualLink.textContent = "🛒 アプリで購入確認を開く";
+  var qId = q.get("id") || "";
+  var qV = q.get("v") || "";
+  var isMPrefix = /^m\d{6,}$/.test(qId);
+  var isShops = /^2[A-Za-z0-9]{20,}$/.test(qId);
+  if (qId && (isMPrefix || isShops)) {
+    var appTarget;
+    if (isShops && qV && /^2[A-Za-z0-9]{20,}$/.test(qV)) {
+      appTarget = "mercari://app/openUrl?url=" + encodeURIComponent("https://mercari-shops.com/purchase/" + qId + "/" + qV);
+      statusEl.textContent = "メルカリアプリの購入手続きへ移動しています…";
+      manualLink.textContent = "🛒 アプリで購入手続きを開く";
+    } else if (isShops) {
+      appTarget = "mercari://app/openUrl?url=" + encodeURIComponent("https://mercari-shops.com/products/" + qId);
+      statusEl.textContent = "メルカリアプリの商品ページへ移動しています…";
+      manualLink.textContent = "🛒 アプリで商品ページを開く";
+    } else {
+      appTarget = "mercari://app/openUrl?url=" + encodeURIComponent("https://jp.mercari.com/purchase/" + qId);
+      statusEl.textContent = "メルカリアプリの購入確認へ移動しています…";
+      manualLink.textContent = "🛒 アプリで購入確認を開く";
+    }
+    manualLink.href = appTarget;
     fallbackZone.hidden = false;
     location.href = appTarget;
     return;
