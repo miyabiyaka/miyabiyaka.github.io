@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>mercari:// 入口テスト</title>
+<style>body{font-family:-apple-system,sans-serif;background:#111;color:#eee;padding:20px}a.b{display:block;background:#2c2c2e;color:#8ab4f8;padding:14px;border-radius:10px;margin:12px 0;text-decoration:none;font-size:16px}small{color:#888}</style></head>
+<body><h2>mercari:// 入口テスト（購入は走りません）</h2>
+<p><small>上から順にタップ。何が開いたか（アプリ／Safari／何も起きない／ログイン画面）をメモしてください。</small></p>
+<a class="b" href="mercari://app/openHome">T1 mercari://app/openHome<br><small>対照: iOSがこの入口を持っているか</small></a>
+<a class="b" href="mercari://app/openUrl?url=https%3A%2F%2Fjp.mercari.com%2Fitem%2Fm84966777836">T2 openUrl → 商品ページ<br><small>アプリ内ブラウザがログイン済みか</small></a>
+<a class="b" href="mercari://app/openUrl?url=https%3A%2F%2Fjp.mercari.com%2Fpurchase%2Fm84966777836">T3 openUrl → 購入確認ページ<br><small>本命。購入確認画面が壁なしで出るか</small></a>
+<a class="b" href="mercari://app/openBuyerOrderHistoryPage">T4 openBuyerOrderHistoryPage<br><small>対照2: 引数なしの内部画面</small></a>
+<p class="note"><small>このページは何も記録・送信しません。</small></p>
+</body></html>
