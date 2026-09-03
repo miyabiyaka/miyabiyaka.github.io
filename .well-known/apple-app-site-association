@@ -4,11 +4,20 @@
     "details": [
       {
         "appID": "5STUZHLTXB.com.miyabiyaka.lts-research",
-        "paths": ["/lts-redirect/*", "/lts-redirect/"]
+        "paths": [
+          "/lts-redirect/*",
+          "/lts-redirect/"
+        ]
       },
       {
         "appID": "5STUZHLTXB.com.miyabiyaka.ecalertrecolleassist",
-        "paths": ["/purchase/mercari", "/purchase/mercari/"]
+        "paths": [
+          "/purchase/mercari",
+          "/purchase/mercari/",
+          "/purchase/mercari/app",
+          "/purchase/mercari/app/",
+          "/purchase/mercari/app/*"
+        ]
       }
     ]
   }
