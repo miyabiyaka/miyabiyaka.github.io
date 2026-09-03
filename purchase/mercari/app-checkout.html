@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Purchase Assist (app)</title>
+<style>:root{color-scheme:light dark}body{margin:0;background:#111318;color:#f7f7f8;font-family:-apple-system,"Hiragino Sans",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center}main{text-align:center;padding:24px;width:100%;max-width:420px}#status{font-size:16px;min-height:1.2em;margin:0 0 12px}a.go{display:block;background:#e62e2e;color:#fff;font-size:18px;font-weight:600;padding:16px;border-radius:12px;text-decoration:none;margin-top:12px}.note{color:#666;font-size:12px;margin-top:24px;line-height:1.5}</style></head>
+<body><main>
+<p id="status">メルカリアプリの購入確認へ移動しています…</p>
+<div id="fallback" hidden><a id="go" class="go">🛒 アプリで購入確認を開く</a></div>
+<p class="note">このページは注文情報を読み取り・保存・転送しません。</p>
+</main>
+<script>
+(function(){
+  var p=new URLSearchParams(location.hash.slice(1));
+  var id=p.get("id");
+  var st=document.getElementById("status");
+  if(!id||!/^m\d{6,}$/.test(id)){st.textContent="リンクが不完全です";return;}
+  var target="mercari://app/openUrl?url="+encodeURIComponent("https://jp.mercari.com/purchase/"+id);
+  var a=document.getElementById("go"); a.href=target;
+  document.getElementById("fallback").hidden=false;
+  // 自動遷移を試みる（iOSが確認ダイアログを出すか／黙って開くかを実測する）
+  location.href=target;
+  setTimeout(function(){ st.textContent="自動で開かない場合は下のボタンをタップ"; },1500);
+})();
+</script>
+</body></html>
