@@ -19,7 +19,10 @@
           "/purchase/mercari/app/*",
           "/purchase/recolle",
           "/purchase/recolle/",
-          "/purchase/recolle/*"
+          "/purchase/recolle/*",
+          "/purchase/2ndstreet",
+          "/purchase/2ndstreet/",
+          "/purchase/2ndstreet/*"
         ]
       }
     ]

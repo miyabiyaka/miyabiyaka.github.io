@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>EC Alert Relay</title>
+<title>Purchase Assist — セカンドストリート</title>
 <style>
   :root { color-scheme: light dark; }
   body { margin: 0; background: #111318; color: #f7f7f8;
@@ -37,7 +37,10 @@
     statusEl.className = "error";
   }
 
-  var params = new URLSearchParams(location.hash.slice(1));
+  // Universal Link 経路（Purchase Assist・AASA一致のため query 形式）を先に読み、
+  // 旧カード（fragment 形式 #g=…）も引き続き受ける。
+  var params = new URLSearchParams(location.search);
+  if (!params.get("g")) params = new URLSearchParams(location.hash.slice(1));
   var g = params.get("g");
   var s = params.get("s");
   var mp = params.get("mp");
