@@ -3,43 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yahoo!フリマ URLスキームテスト</title>
+<title>Yahoo!フリマ 購入パステスト</title>
 <style>
 body { font-family: -apple-system, sans-serif; padding: 20px; background: #111; color: #eee; }
-.btn { display: block; width: 100%; padding: 16px; margin: 8px 0; background: #2563eb; color: white;
-       border: none; border-radius: 8px; font-size: 16px; text-align: center; text-decoration: none; }
+.btn { display: block; width: 100%; padding: 14px; margin: 6px 0; background: #2563eb; color: white;
+       border: none; border-radius: 8px; font-size: 14px; text-align: center; text-decoration: none; }
 .btn:active { background: #1d4ed8; }
-.result { padding: 8px; margin: 4px 0; border-radius: 4px; font-size: 14px; }
-.pending { background: #333; }
-.success { background: #166534; }
-.fail { background: #7f1d1d; }
-h2 { font-size: 18px; }
-p { font-size: 14px; color: #999; }
+.section { margin-top: 20px; padding-top: 12px; border-top: 1px solid #333; }
+h2 { font-size: 16px; margin: 0 0 8px; }
+p { font-size: 13px; color: #999; margin: 0 0 12px; }
 </style>
 </head>
 <body>
-<h2>Yahoo!フリマ URLスキーム テスト</h2>
-<p>各ボタンをタップして、アプリが開くか確認してください。<br>開いたら ✅、開かなければ ❌ です。</p>
-<div id="buttons"></div>
-<script>
-var schemes = [
-  {label: "paypayfleamarket://", url: "paypayfleamarket://item/z681476030"},
-  {label: "yjpaypayfleamarket://", url: "yjpaypayfleamarket://item/z681476030"},
-  {label: "yjapp-paypayfleamarket://", url: "yjapp-paypayfleamarket://item/z681476030"},
-  {label: "jp.co.yahoo.paypayfleamarket://", url: "jp.co.yahoo.paypayfleamarket://item/z681476030"},
-  {label: "yjapp://pfm/item", url: "yjapp://open?appid=paypayfleamarket&url=https://paypayfleamarket.yahoo.co.jp/item/z681476030"},
-  {label: "yj-paypayfleamarket://", url: "yj-paypayfleamarket://item/z681476030"},
-  {label: "yfleamarket://", url: "yfleamarket://item/z681476030"},
-  {label: "yjfleamarket://", url: "yjfleamarket://item/z681476030"},
-];
-var container = document.getElementById("buttons");
-schemes.forEach(function(s) {
-  var a = document.createElement("a");
-  a.className = "btn";
-  a.href = s.url;
-  a.textContent = s.label;
-  container.appendChild(a);
-});
-</script>
+<h2>paypayfleamarket:// 購入パス テスト</h2>
+<p>スキーム確定済み。購入手続きに直行するパスを探します。<br>各ボタンをタップしてアプリのどの画面が開くか確認。</p>
+
+<div class="section">
+<h2>A. 注文系パス</h2>
+<a class="btn" href="paypayfleamarket://item/z681476030/order">item/{id}/order</a>
+<a class="btn" href="paypayfleamarket://order/z681476030">order/{id}</a>
+<a class="btn" href="paypayfleamarket://purchase/z681476030">purchase/{id}</a>
+<a class="btn" href="paypayfleamarket://buy/z681476030">buy/{id}</a>
+<a class="btn" href="paypayfleamarket://checkout/z681476030">checkout/{id}</a>
+</div>
+
+<div class="section">
+<h2>B. openUrl 方式（メルカリ型）</h2>
+<a class="btn" href="paypayfleamarket://app/openUrl?url=https%3A%2F%2Fpaypayfleamarket-sec.yahoo.co.jp%2Fitem%2Fz681476030%2Forder">app/openUrl → -sec/order</a>
+<a class="btn" href="paypayfleamarket://openUrl?url=https%3A%2F%2Fpaypayfleamarket.yahoo.co.jp%2Fitem%2Fz681476030">openUrl → item page</a>
+<a class="btn" href="paypayfleamarket://open?url=https%3A%2F%2Fpaypayfleamarket-sec.yahoo.co.jp%2Fitem%2Fz681476030%2Forder">open → -sec/order</a>
+</div>
+
+<div class="section">
+<h2>C. 商品ページ（比較用）</h2>
+<a class="btn" href="paypayfleamarket://item/z681476030">item/{id}（前回確認済み）</a>
+</div>
 </body>
 </html>
