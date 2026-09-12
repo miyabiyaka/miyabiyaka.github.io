@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yahoo!フリマ URLスキームテスト</title>
+<style>
+body { font-family: -apple-system, sans-serif; padding: 20px; background: #111; color: #eee; }
+.btn { display: block; width: 100%; padding: 16px; margin: 8px 0; background: #2563eb; color: white;
+       border: none; border-radius: 8px; font-size: 16px; text-align: center; text-decoration: none; }
+.btn:active { background: #1d4ed8; }
+.result { padding: 8px; margin: 4px 0; border-radius: 4px; font-size: 14px; }
+.pending { background: #333; }
+.success { background: #166534; }
+.fail { background: #7f1d1d; }
+h2 { font-size: 18px; }
+p { font-size: 14px; color: #999; }
+</style>
+</head>
+<body>
+<h2>Yahoo!フリマ URLスキーム テスト</h2>
+<p>各ボタンをタップして、アプリが開くか確認してください。<br>開いたら ✅、開かなければ ❌ です。</p>
+<div id="buttons"></div>
+<script>
+var schemes = [
+  {label: "paypayfleamarket://", url: "paypayfleamarket://item/z681476030"},
+  {label: "yjpaypayfleamarket://", url: "yjpaypayfleamarket://item/z681476030"},
+  {label: "yjapp-paypayfleamarket://", url: "yjapp-paypayfleamarket://item/z681476030"},
+  {label: "jp.co.yahoo.paypayfleamarket://", url: "jp.co.yahoo.paypayfleamarket://item/z681476030"},
+  {label: "yjapp://pfm/item", url: "yjapp://open?appid=paypayfleamarket&url=https://paypayfleamarket.yahoo.co.jp/item/z681476030"},
+  {label: "yj-paypayfleamarket://", url: "yj-paypayfleamarket://item/z681476030"},
+  {label: "yfleamarket://", url: "yfleamarket://item/z681476030"},
+  {label: "yjfleamarket://", url: "yjfleamarket://item/z681476030"},
+];
+var container = document.getElementById("buttons");
+schemes.forEach(function(s) {
+  var a = document.createElement("a");
+  a.className = "btn";
+  a.href = s.url;
+  a.textContent = s.label;
+  container.appendChild(a);
+});
+</script>
+</body>
+</html>
