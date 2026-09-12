@@ -45,14 +45,14 @@
     return;
   }
 
-  var target = "https://paypayfleamarket-sec.yahoo.co.jp/item/" + id + "/order";
-  var fallbackTarget = "https://paypayfleamarket.yahoo.co.jp/item/" + id;
+  var appTarget = "paypayfleamarket://item/" + id;
+  var webFallback = "https://paypayfleamarket.yahoo.co.jp/item/" + id;
 
-  manualLink.href = fallbackTarget;
-  manualLink.textContent = "🛒 アプリで商品を開く";
+  manualLink.href = webFallback;
+  manualLink.textContent = "🛒 ブラウザで商品を開く";
   fallbackZone.hidden = false;
 
-  location.replace(target);
+  location.replace(appTarget);
 })();
 </script>
 </body>
